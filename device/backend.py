@@ -1,7 +1,7 @@
 import socket
-from signal import generate_ecg_signal
 import random
 import json
+import time
 #### here we are emulating the medical device
 HOST= '0.0.0.0'
 
@@ -17,12 +17,21 @@ with socket.socket(socket.AF_INET,socket.SOCK_STREAM) as app_socket:
     conn,add=app_socket.accept()
     with conn:
         print('ip',add)  
-        x, y = generate_ecg_signal()
         id = random.randint(1, 100)
-        
-        response = {'x': x.tolist(), 'y': y.tolist(), 'id': id}
-        json_response = json.dumps(response)
-        conn.sendall(json_response.encode())
+        for i in range(100):
+            time.sleep(1)
+
+            x=i
+            y = random.randint(85, 99)
+            
+            
+            response = {'x': x, 'y': y, 'id': id}
+            json_response = json.dumps(response)
+            conn.sendall(json_response.encode())
+           
+                
+            # close the connection outside the loop
+        conn.close()
         
 
 
