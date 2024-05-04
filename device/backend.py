@@ -19,7 +19,7 @@ with socket.socket(socket.AF_INET,socket.SOCK_STREAM) as app_socket:
         print('ip',add)  
         id = random.randint(1, 100)
         for i in range(100):
-            time.sleep(1)
+            time.sleep(0.25)
 
             x=i
             y = random.randint(85, 99)
