@@ -1,13 +1,15 @@
 import socket
 import json
 import matplotlib.pyplot as plt
-
-SERVER_ADDRESS = '192.168.1.12'
+import redis
+SERVER_ADDRESS = '192.168.1.11'
 PORT = 2001
 x_values = []
 y_values = []
 #plt.ion()  # Turn on interactive mode
 
+# Connect to your Redis server
+r = redis.Redis(host='localhost', port=6379, db=0)
 with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as front_socket:
     front_socket.connect((SERVER_ADDRESS, PORT))
 
@@ -38,3 +40,8 @@ with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as front_socket:
 
 
 #TODO: SAVE TO REDIS DB
+x_values_str = json.dumps(x_values)
+y_values_str = json.dumps(y_values)
+
+# Store the arrays in Redis
+r.set(id, json.dumps({'x_values': x_values_str, 'y_values': y_values_str}))

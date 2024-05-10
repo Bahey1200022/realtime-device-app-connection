@@ -1,20 +1,38 @@
 import tkinter as tk
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 from matplotlib.figure import Figure
-
+import redis
+import json
+r = redis.Redis(host='localhost', port=6379, db=0)
+x_values = []
+y_values = []
 def search():
+    message_label.config(text="")
     patient_id = patient_id_entry.get()
-    # Add your search functionality here using the patient_id
-    pass
+    data_str = r.get(patient_id)
+    if data_str is not None:  # Check if the key exists in Redis
+
+        data = json.loads(data_str)
+
+    # Convert the strings back to arrays
+        x_values[:] = json.loads(data['x_values'])
+        y_values[:] = json.loads(data['y_values'])
+        # print(x_values)
+        # print(y_values)
+        message_label.config(text=f"patient with ID {patient_id} found")
+    else:
+        message_label.config(text=f"No data found for patient ID {patient_id}")
+            
+    
+    
 
 def play():
     # Clear the previous plot
     ax.clear()
 
     # Example: Plot a simple line
-    x = [1, 2, 3, 4, 5]
-    y = [1, 4, 9, 16, 25]
-    ax.plot(x, y)
+    print(x_values)
+    ax.plot(x_values, y_values)
     plot_placeholder.draw()
 
 root = tk.Tk()
@@ -22,6 +40,9 @@ root = tk.Tk()
 # Create a search bar
 search_frame = tk.Frame(root)
 search_frame.pack()
+
+message_label = tk.Label(root, text="")
+message_label.pack()
 
 patient_id_entry = tk.Entry(search_frame)
 patient_id_entry.pack(side=tk.LEFT)
