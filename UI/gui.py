@@ -6,6 +6,8 @@ import json
 r = redis.Redis(host='localhost', port=6379, db=0)
 x_values = []
 y_values = []
+z_values = []
+t_values = []
 def search():
     message_label.config(text="")
     patient_id = patient_id_entry.get()
@@ -17,6 +19,8 @@ def search():
     # Convert the strings back to arrays
         x_values[:] = json.loads(data['x_values'])
         y_values[:] = json.loads(data['y_values'])
+        z_values[:] = json.loads(data['z_values'])
+        t_values[:] = json.loads(data['t_values'])
         # print(x_values)
         # print(y_values)
         message_label.config(text=f"patient with ID {patient_id} found")
@@ -33,8 +37,38 @@ def play():
     # Example: Plot a simple line
     print(x_values)
     ax.plot(x_values, y_values)
+    ax.set_xlabel('Time')
+    ax.set_ylabel('Oxygen Level')
+    
+    
+    plot_placeholder.draw()
+    
+def play2():
+    # Clear the previous plot
+    ax.clear()
+
+    # Example: Plot a simple line
+    print(x_values)
+    ax.plot(x_values, z_values)
+    ax.set_xlabel('Time')
+    ax.set_ylabel('Heart Rate')
+    
+    
     plot_placeholder.draw()
 
+def play3():
+    # Clear the previous plot
+    ax.clear()
+
+    # Example: Plot a simple line
+    print(x_values)
+    ax.plot(x_values, t_values)
+    ax.set_xlabel('Time')
+    ax.set_ylabel('Temperature')
+    
+    
+    plot_placeholder.draw()
+    
 root = tk.Tk()
 root.title("Patient Vital Signs Viewer")
 
@@ -57,6 +91,14 @@ search_button.pack(side=tk.LEFT)
 # Create a play button
 play_button = tk.Button(root, text="Show Oxygen Levels", command=play)
 play_button.pack()
+
+# Create a button to plot heart rate
+play2_button = tk.Button(root, text="Show Heart Rate", command=play2)
+play2_button.pack()
+
+# Create a button to plot temperature
+play3_button = tk.Button(root, text="Show Temperature", command=play3)
+play3_button.pack()
 
 # Create a placeholder for the plot
 figure = Figure(figsize=(5, 4), dpi=100)
