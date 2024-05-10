@@ -11,7 +11,7 @@
 
 <p>
 Medical Device Simulator (Client):
-        Simulates a medical device generating random vital sign data (Oxygen Level).
+        Simulates a medical device generating random vital sign data (Oxygen Level & temperature & Heart Beat).
         Sends patient ID and vital sign data to the server at regular intervals using a TCP socket connection.
 
 Server:
@@ -19,7 +19,7 @@ Server:
         Connects to a Redis database to store received data as key-value pairs (key: patient ID, value: vital signs).
 
 GUI (Data Visualization):
-        Provides a user-friendly interface to visualize Oxygen level over time.
+        Provides a user-friendly interface to visualize Oxygen level & temperature & Heart Beat over time.
         Allows users to search for specific patients using their ID.
         Displays corresponding vital sign data from Redis in a plot.
 
