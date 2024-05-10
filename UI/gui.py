@@ -36,10 +36,11 @@ def play():
     plot_placeholder.draw()
 
 root = tk.Tk()
+root.title("Patient Vital Signs Viewer")
 
 # Create a search bar
 search_frame = tk.Frame(root)
-search_frame.pack()
+search_frame.pack(pady=10)
 
 message_label = tk.Label(root, text="")
 message_label.pack()
@@ -47,8 +48,10 @@ message_label.pack()
 patient_id_entry = tk.Entry(search_frame)
 patient_id_entry.pack(side=tk.LEFT)
 
+
+
 # Create a search button
-search_button = tk.Button(search_frame, text="Search ID", command=search)
+search_button = tk.Button(search_frame, text="Patient ID", command=search)
 search_button.pack(side=tk.LEFT)
 
 # Create a play button

@@ -17,10 +17,12 @@ with socket.socket(socket.AF_INET,socket.SOCK_STREAM) as app_socket:
     conn,add=app_socket.accept()
     with conn:
         print('ip',add)  
+        # patient Id  a random value between 1 and 100
         id = random.randint(1, 100)
         for i in range(100):
             time.sleep(0.25)
 
+            # y is a random value between 85 and 99 of Oxygen level
             x=i
             y = random.randint(85, 99)
             
