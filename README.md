@@ -24,7 +24,10 @@ GUI (Data Visualization):
 
 
 
-https://github.com/Bahey1200022/realtime-device-app-connection/assets/104398513/6c4c2add-831c-4e69-a87f-abb2e28258fd
+
+
+https://github.com/Bahey1200022/realtime-device-app-connection/assets/104398513/31f2773d-891a-46b1-8d27-60abe1af18e7
+
 
 
 
