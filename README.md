@@ -21,6 +21,13 @@ Server:
 GUI (Data Visualization):
         Provides a user-friendly interface to visualize Oxygen level & temperature & Heart Beat over time.
         Allows users to search for specific patients using their ID.
+
+
+
+https://github.com/Bahey1200022/realtime-device-app-connection/assets/104398513/6c4c2add-831c-4e69-a87f-abb2e28258fd
+
+
+
         Displays corresponding vital sign data from Redis in a plot.
 
 </p>
