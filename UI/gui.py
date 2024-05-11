@@ -3,11 +3,17 @@ from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 from matplotlib.figure import Figure
 import redis
 import json
+import matplotlib.animation as animation
+
 r = redis.Redis(host='localhost', port=6379, db=0)
 x_values = []
 y_values = []
 z_values = []
 t_values = []
+
+def update(num, x, y, line):
+    line.set_data(x[:num], y[:num])
+    return line,
 def search():
     message_label.config(text="")
     patient_id = patient_id_entry.get()
@@ -31,42 +37,52 @@ def search():
     
 
 def play():
+    
+    # Clear the previous plot
     # Clear the previous plot
     ax.clear()
 
-    # Example: Plot a simple line
-    print(x_values)
-    ax.plot(x_values, y_values)
+    # Create a line object with no data
+    line, = ax.plot([], [], 'r-')
+
+    ani = animation.FuncAnimation(figure, update, len(x_values), fargs=[x_values, y_values, line],
+                                  interval=100, blit=True)
+    ax.set_xlim(0, max(x_values))
+    ax.set_ylim(min(y_values), max(y_values))
     ax.set_xlabel('Time')
     ax.set_ylabel('Oxygen Level')
-    
-    
+
     plot_placeholder.draw()
     
 def play2():
     # Clear the previous plot
     ax.clear()
 
-    # Example: Plot a simple line
-    print(x_values)
-    ax.plot(x_values, z_values)
+    # Create a line object with no data
+    line, = ax.plot([], [], 'r-')
+
+    ani = animation.FuncAnimation(figure, update, len(x_values), fargs=[x_values, z_values, line],
+                                  interval=100, blit=True)
+    ax.set_xlim(0, max(x_values))
+    ax.set_ylim(min(z_values), max(z_values))
     ax.set_xlabel('Time')
     ax.set_ylabel('Heart Rate')
-    
-    
-    plot_placeholder.draw()
 
+    plot_placeholder.draw()
 def play3():
     # Clear the previous plot
     ax.clear()
 
-    # Example: Plot a simple line
-    print(x_values)
-    ax.plot(x_values, t_values)
+    # Create a line object with no data
+    line, = ax.plot([], [], 'r-')
+
+    ani = animation.FuncAnimation(figure, update, len(x_values), fargs=[x_values, t_values, line],
+                                  interval=100, blit=True)
+    ax.set_xlim(0, max(x_values))
+    ax.set_ylim(min(t_values), max(t_values))
     ax.set_xlabel('Time')
     ax.set_ylabel('Temperature')
-    
-    
+
     plot_placeholder.draw()
     
 root = tk.Tk()
